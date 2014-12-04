@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.knime.python.modules">
+      <directory
+            path="py/">
+      </directory>
+   </extension>
+   <extension
+         point="org.knime.python.typeextension.knimetopython">
+      <type
+            id="org.knime.knip.python.extensions.ImgPlusSerializer"
+            java-serializer-factory="org.knime.knip.python.extensions.ImgPlusSerializer"
+            python-deserializer="py/NDImageDeserializer.py">
+      </type>
+   </extension>
+   <extension
+         point="org.knime.python.typeextension.pythontoknime">
+      <type
+            id="org.knime.knip.python.extensions.TiffFileDeserializer"
+            java-deserializer-factory="org.knime.knip.python.extensions.ImgPlusDeserializer"
+            python-serializer="py/NDImageSerializer.py"
+            python-type-identifier="NDImage.NDImage">
+      </type>
+   </extension>
+   <extension
+         point="org.knime.python.sourcecodetemplates">
+      <folder
+            path="templates/">
+      </folder>
+   </extension>
+</plugin>

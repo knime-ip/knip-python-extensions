@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-Name: KNIME Image Processing - Python Extensions
+Bundle-SymbolicName: org.knime.knip.python.extensions;singleton:=true
+Bundle-ManifestVersion: 2
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: University of Konstanz
+Eclipse-RegisterBuddy: org.knime.core
+Require-Bundle: org.knime.base;bundle-version="2.11.0",
+ org.knime.workbench.repository,
+ org.apache.log4j;bundle-version="1.2.15",
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.knime.knip.base;bundle-version="[1.0.1,2.0.0)",
+ org.knime.python;bundle-version="2.11.0",
+ org.knime.knip.core;bundle-version="[1.0.1,2.0.0)",
+ org.knime.knip.io;bundle-version="[1.2.0,2.0.0)",
+ org.knime.knip.scifio,
+ org.knime.knip.scijava
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: .
+Export-Package: org.knime.knip.python.extensions
+
