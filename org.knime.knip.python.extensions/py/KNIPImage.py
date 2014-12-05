@@ -1,6 +1,6 @@
-#wrapper class to make n-d ImgPlus images available in Python
-class NDImage:
+# wrapper class 
+class KNIPImage:
 	# data is ndarray
-	 def __init__(self, data):
-		self.data = data
+	 def __init__(self, array):
+		self.array = array
 

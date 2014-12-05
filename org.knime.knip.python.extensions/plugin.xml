@@ -18,7 +18,7 @@
    <extension
          point="org.knime.python.typeextension.pythontoknime">
       <type
-            id="org.knime.knip.python.extensions.TiffFileDeserializer"
+            id="org.knime.knip.python.extensions.ImgPlusDeserializer"
             java-deserializer-factory="org.knime.knip.python.extensions.ImgPlusDeserializer"
             python-serializer="py/KNIPImageSerializer.py"
             python-type-identifier="NDImage.NDImage">
