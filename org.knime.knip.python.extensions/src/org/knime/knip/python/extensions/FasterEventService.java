@@ -24,6 +24,7 @@ public class FasterEventService extends DefaultEventService implements
 
 	@Override
 	public List<EventSubscriber<?>> subscribe(Object o) {
+		// TODO usually tons of calls are made here... I don't want that
 		return EMPTYLIST;
 	}
 

@@ -82,6 +82,7 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 				try {
 					final ByteArrayHandle handle = new ByteArrayHandle();
 					populateMeta(m_writer, imgPlus, m_kp.scifioConfig(), 0);
+					// HACK Corresponds to filename
 					m_writer.getMetadata().setDatasetName("");
 					m_writer.setDest(new RandomAccessOutputStream(handle), 0);
 

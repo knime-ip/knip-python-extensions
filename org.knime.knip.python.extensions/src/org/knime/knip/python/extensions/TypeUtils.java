@@ -7,8 +7,8 @@ import net.imglib2.meta.ImgPlus;
 import net.imglib2.type.logic.BitType;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.integer.ByteType;
-import net.imglib2.type.numeric.integer.IntType;
 import net.imglib2.type.numeric.integer.LongType;
+import net.imglib2.type.numeric.integer.ShortType;
 import net.imglib2.type.numeric.integer.Unsigned12BitType;
 import net.imglib2.type.numeric.integer.UnsignedShortType;
 
@@ -39,7 +39,7 @@ public class TypeUtils {
 
 		// convert is required
 		if (type instanceof LongType) {
-			return convertedImgPlus(in, new IntType());
+			return convertedImgPlus(in, new ShortType());
 		} else if (type instanceof Unsigned12BitType) {
 			return convertedImgPlus(in, new UnsignedShortType());
 		} else if (type instanceof BitType) {

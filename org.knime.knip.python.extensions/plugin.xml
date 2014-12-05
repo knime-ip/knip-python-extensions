@@ -12,7 +12,7 @@
       <type
             id="org.knime.knip.python.extensions.ImgPlusSerializer"
             java-serializer-factory="org.knime.knip.python.extensions.ImgPlusSerializer"
-            python-deserializer="py/NDImageDeserializer.py">
+            python-deserializer="py/KNIPImageDeserializer.py">
       </type>
    </extension>
    <extension
@@ -20,7 +20,7 @@
       <type
             id="org.knime.knip.python.extensions.TiffFileDeserializer"
             java-deserializer-factory="org.knime.knip.python.extensions.ImgPlusDeserializer"
-            python-serializer="py/NDImageSerializer.py"
+            python-serializer="py/KNIPImageSerializer.py"
             python-type-identifier="NDImage.NDImage">
       </type>
    </extension>
