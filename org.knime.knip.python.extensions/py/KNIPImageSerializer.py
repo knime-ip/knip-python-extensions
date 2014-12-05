@@ -6,9 +6,8 @@ from io import BytesIO
 from PIL import Image
 
 # Saves NDImage to buffer
-def serialize(ndimage):
+def serialize(knipimage):
 	buffer = BytesIO()
-	array = ndimage.data
-	toimage(array).save(buffer, 'tiff')
+	toimage(knipimage.array).save(buffer, 'tiff')
 	return buffer.getvalue()
 
