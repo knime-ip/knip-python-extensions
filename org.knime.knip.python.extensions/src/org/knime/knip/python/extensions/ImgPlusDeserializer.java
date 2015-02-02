@@ -10,7 +10,7 @@ import io.scif.io.RandomAccessInputStream;
 
 import java.io.IOException;
 
-import net.imglib2.meta.ImgPlus;
+import net.imagej.ImgPlus;
 
 import org.knime.core.data.DataCell;
 import org.knime.core.data.filestore.FileStoreFactory;

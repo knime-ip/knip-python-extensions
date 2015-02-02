@@ -14,8 +14,11 @@ Require-Bundle: org.knime.base;bundle-version="2.11.0",
  org.knime.python;bundle-version="2.11.0",
  org.knime.knip.core;bundle-version="[1.0.1,2.0.0)",
  org.knime.knip.io;bundle-version="[1.2.0,2.0.0)",
- org.knime.knip.scifio,
- org.knime.knip.scijava
+ imglib2;bundle-version="2.2.0",
+ imglib2-ij;bundle-version="2.0.29",
+ scifio;bundle-version="0.20.0",
+ scijava-common;bundle-version="2.37.0",
+ imagej-common;bundle-version="0.12.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ClassPath: .
 Export-Package: org.knime.knip.python.extensions
