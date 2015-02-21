@@ -8,6 +8,6 @@ from PIL import Image
 # Saves NDImage to buffer
 def serialize(knipimage):
 	buffer = BytesIO()
-	toimage(knipimage.array).save(buffer, 'tiff')
+	scipy.misc.imsave(buffer, knipimage.array, 'tiff')
 	return buffer.getvalue()
 
