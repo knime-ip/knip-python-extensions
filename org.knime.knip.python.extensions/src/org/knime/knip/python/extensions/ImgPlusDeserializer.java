@@ -5,6 +5,7 @@ import io.scif.FormatException;
 import io.scif.Metadata;
 import io.scif.Parser;
 import io.scif.Reader;
+import io.scif.config.SCIFIOConfig;
 import io.scif.img.ImgOpener;
 import io.scif.io.RandomAccessInputStream;
 
@@ -16,6 +17,7 @@ import org.knime.core.data.DataCell;
 import org.knime.core.data.filestore.FileStoreFactory;
 import org.knime.knip.base.data.img.ImgPlusCell;
 import org.knime.knip.base.data.img.ImgPlusCellFactory;
+import org.knime.knip.io.ScifioGateway;
 import org.knime.python.typeextension.Deserializer;
 import org.knime.python.typeextension.DeserializerFactory;
 
@@ -30,18 +32,17 @@ import org.knime.python.typeextension.DeserializerFactory;
 public class ImgPlusDeserializer extends DeserializerFactory {
 
 	/**
-	 * {@link KNIPPythonGateway}
-	 */
-	private KNIPPythonGateway m_kp = KNIPPythonGateway.instance();
-
-	/**
 	 * ImgOpener to read ImgPlus from stream
 	 */
 	private ImgOpener m_imgOpener;
+	private SCIFIOConfig m_scifioConfig;
 
 	public ImgPlusDeserializer() {
 		super(ImgPlusCell.TYPE);
-		m_imgOpener = new ImgOpener(m_kp.context());
+		m_imgOpener = new ImgOpener(ScifioGateway.getSCIFIO().context());
+		m_scifioConfig = new SCIFIOConfig();
+		m_scifioConfig.groupableSetGroupFiles(false);
+		m_scifioConfig.imgOpenerSetComputeMinMax(false);
 	}
 
 	@Override
@@ -53,7 +54,8 @@ public class ImgPlusDeserializer extends DeserializerFactory {
 			private final Parser m_parser;
 			{
 				try {
-					m_format = m_kp.formatService().getFormat(".tif");
+					m_format = ScifioGateway.getSCIFIO().format()
+							.getFormat(".tif");
 					m_parser = m_format.createParser();
 				} catch (FormatException e) {
 					throw new RuntimeException(e);
@@ -73,7 +75,7 @@ public class ImgPlusDeserializer extends DeserializerFactory {
 				// We have to set the filename as a NPE would be thrown
 				// otherwise
 				final RandomAccessInputStream stream = new RandomAccessInputStream(
-						m_kp.context(), bytes){
+						ScifioGateway.getSCIFIO().getContext(), bytes) {
 					@Override
 					public String getFileName() {
 						return "";
@@ -83,15 +85,15 @@ public class ImgPlusDeserializer extends DeserializerFactory {
 				try {
 
 					final Metadata metadata = m_parser.parse(stream,
-							m_kp.scifioConfig());
+							m_scifioConfig);
 					metadata.setSource(stream);
 
 					final Reader reader = m_format.createReader();
 					reader.setMetadata(metadata);
-					reader.setSource(stream, m_kp.scifioConfig());
+					reader.setSource(stream, m_scifioConfig);
 
 					return factory.createCell((ImgPlus) m_imgOpener.openImgs(
-							reader, m_kp.scifioConfig()).get(0));
+							reader, m_scifioConfig).get(0));
 				} catch (final Exception e) {
 					throw new RuntimeException(e);
 				}

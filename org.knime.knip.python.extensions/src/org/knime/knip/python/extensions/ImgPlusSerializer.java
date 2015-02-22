@@ -24,6 +24,7 @@ import net.imagej.axis.Axes;
 import net.imagej.axis.CalibratedAxis;
 
 import org.knime.knip.base.data.img.ImgPlusValue;
+import org.knime.knip.io.ScifioGateway;
 import org.knime.python.typeextension.Serializer;
 import org.knime.python.typeextension.SerializerFactory;
 
@@ -45,16 +46,19 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 	private ImgSaver m_saver;
 
 	/**
-	 * {@link KNIPPythonGateway}
+	 * SCIFIO config to read/write images
 	 */
-	private KNIPPythonGateway m_kp = KNIPPythonGateway.instance();
+	private SCIFIOConfig m_scifioConfig;
 
 	/**
 	 * Constructor
 	 */
 	public ImgPlusSerializer() {
 		super(ImgPlusValue.class);
-		m_saver = new ImgSaver(m_kp.context());
+		m_saver = new ImgSaver(ScifioGateway.getSCIFIO().getContext());
+		m_scifioConfig = new SCIFIOConfig();
+		m_scifioConfig.groupableSetGroupFiles(false);
+		m_scifioConfig.imgOpenerSetComputeMinMax(false);
 	}
 
 	@Override
@@ -66,8 +70,8 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 
 			{
 				try {
-					m_writer = m_kp.formatService()
-							.getWriterByExtension(".tif");
+					m_writer = ScifioGateway.format().getWriterByExtension(
+							".tif");
 				} catch (FormatException e) {
 					throw new RuntimeException(e);
 				}
@@ -81,13 +85,12 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 
 				try {
 					final ByteArrayHandle handle = new ByteArrayHandle();
-					populateMeta(m_writer, imgPlus, m_kp.scifioConfig(), 0);
+					populateMeta(m_writer, imgPlus, m_scifioConfig, 0);
 					// HACK Corresponds to filename
 					m_writer.getMetadata().setDatasetName("");
 					m_writer.setDest(new RandomAccessOutputStream(handle), 0);
 
-					m_saver.saveImg(m_writer, imgPlus.getImg(),
-							m_kp.scifioConfig());
+					m_saver.saveImg(m_writer, imgPlus.getImg(), m_scifioConfig);
 
 					m_writer.close();
 
@@ -119,8 +122,8 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 		final Metadata meta = w.getFormat().createMetadata();
 
 		// Get format-specific metadata
-		Metadata imgMeta = m_kp.utilityService().makeSCIFIOImgPlus(img)
-				.getMetadata();
+		Metadata imgMeta = ScifioGateway.getSCIFIO().imgUtil()
+				.makeSCIFIOImgPlus(img).getMetadata();
 
 		final List<ImageMetadata> imageMeta = new ArrayList<ImageMetadata>();
 
@@ -135,7 +138,7 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 		}
 
 		// Create Img-specific ImageMetadatas
-		final int pixelType = m_kp.utilityService()
+		final int pixelType = ScifioGateway.getSCIFIO().imgUtil()
 				.makeType(img.firstElement());
 
 		// TODO is there some way to consolidate this with the isCompressible
@@ -171,8 +174,8 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 		}
 
 		// Translate to the output metadata
-		final Translator t = m_kp.translatorService().findTranslator(imgMeta,
-				meta, false);
+		final Translator t = ScifioGateway.getSCIFIO().translator()
+				.findTranslator(imgMeta, meta, false);
 
 		t.translate(imgMeta, imageMeta, meta);
 

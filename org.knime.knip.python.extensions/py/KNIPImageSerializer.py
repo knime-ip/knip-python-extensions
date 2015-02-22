@@ -1,13 +1,12 @@
 # Serializing TiffFile image on byte stream
 
 import numpy as np
-from scipy.misc import toimage
+from scipy.misc import imsave
 from io import BytesIO
-from PIL import Image
 
 # Saves NDImage to buffer
 def serialize(knipimage):
 	buffer = BytesIO()
-	scipy.misc.imsave(buffer, knipimage.array, 'tiff')
+	imsave(buffer, knipimage.array, 'tiff')
 	return buffer.getvalue()
 

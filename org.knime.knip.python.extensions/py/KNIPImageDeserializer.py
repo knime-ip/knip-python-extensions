@@ -2,7 +2,8 @@
 
 import KNIPImage
 from io import BytesIO
+from scipy.ndimage import imread
 
 # deserialize TiffFile from ByteStream
 def deserialize(bytes):
-	return KNIPImage.KNIPImage(scipy.ndimage.imread(BytesIO(bytes)))
+	return KNIPImage.KNIPImage(imread(BytesIO(bytes)))
