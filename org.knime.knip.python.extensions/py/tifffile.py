@@ -619,7 +619,19 @@ class TiffWriter(object):
                     data[pageindex].tofile(fh)
                     fh.flush()
                 else:
-                    fh.write(data[pageindex].tobytes())
+                    if hasattr(numpy, "tobytes"):
+                        fh.write(data[pageindex].tobytes())
+                    else:
+                        # Also support older numpy versions.
+                        # This is essentially the same for Python 2.
+                        # From numpy releases:
+                        # 
+                        ## tobytes alias for tostring method¶
+                        ## ndarray.tobytes and MaskedArray.tobytes have been added
+                        ## as aliases for tostring which exports arrays as bytes.
+                        ## This is more consistent in Python 3 where str and bytes
+                        ## are not the same.
+                        fh.write(numpy.ndarray.tostring(data[pageindex]))
 
             # update strip and tile offsets and byte_counts if necessary
             pos = fh.tell()
