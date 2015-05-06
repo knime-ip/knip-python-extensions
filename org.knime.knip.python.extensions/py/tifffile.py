@@ -269,15 +269,14 @@ class TiffWriter(object):
 
         self._byteorder = byteorder
         self._software = software
+        
+        self._writingToFile = type(filename) == str # Defines whether the program is writing to a file in a provided path (True) or to a stream buffer directly given as argument (False).
+        
         if type(filename) == str:
             self._fh = open(filename, 'wb')
-            print(type(filename))
-            print('HERE')
         else:
             self._fh = filename
-        print(self._fh)
-        print({'<': b'II', '>': b'MM'}[byteorder])
-        print(type(filename))
+
 
         self._fh.write({'<': b'II', '>': b'MM'}[byteorder])
 
@@ -616,8 +615,11 @@ class TiffWriter(object):
                     fh.write(plane)
             else:
                 # if this fails try update Python/numpy
-                fh.write(data[pageindex].tobytes())#data[pageindex].tofile(fh)
-                #fh.flush()
+                if self._writingToFile:
+                    data[pageindex].tofile(fh)
+                    fh.flush()
+                else:
+                    fh.write(data[pageindex].tobytes())
 
             # update strip and tile offsets and byte_counts if necessary
             pos = fh.tell()
