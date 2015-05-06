@@ -614,12 +614,12 @@ class TiffWriter(object):
                     strip_byte_counts.append(len(plane))
                     fh.write(plane)
             else:
-                # if this fails try update Python/numpy
                 if self._writingToFile:
                     data[pageindex].tofile(fh)
                     fh.flush()
                 else:
                     if hasattr(numpy, "tobytes"):
+                        # This requires the numpy.tobytes method introduced in 1.9.0
                         fh.write(data[pageindex].tobytes())
                     else:
                         # Also support older numpy versions.
