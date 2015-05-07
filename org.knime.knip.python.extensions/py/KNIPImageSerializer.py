@@ -1,16 +1,15 @@
 # Serializing TiffFile image on byte stream
-
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-import numpy as np
-from tifffile import imsave
 from io import BytesIO
+import os
+import sys
 
-# Saves NDImage to buffer
+# make sure we are importing tifffile from this directory
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from tifffile import imsave
+
+# Saves ndarray to buffer
 def serialize(knipimage):
 	buffer = BytesIO()
-	imsave(buffer, knipimage.array,close_file=False)
+	imsave(buffer, knipimage.array, close_file=False)
 	return buffer.getvalue()
 

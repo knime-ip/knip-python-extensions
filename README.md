@@ -18,7 +18,7 @@ of [tifffile.py](http://www.lfd.uci.edu/~gohlke/code/tifffile.py.html)
 by [Christoph Goehlke](http://www.lfd.uci.edu/~gohlke/)
 to byte-stream images from and to Python. 
 
-This results is an increased memory footprint and additional processing time.
+This results in an increased memory footprint and additional processing time.
 
 
 ### Requirements
