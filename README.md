@@ -34,17 +34,16 @@ In order to access the image data from e.g. an "Image Reader" node, a
 # optional, for numpy operations
 import numpy
 
-# `output_table` contains the image data that will be streamed back to
-# KNIME/Java.
+# `output_table` contains the image data that will be streamed back to KNIME
 output_table = input_table.copy()
 
-# The image data is saved in a pandas table
+# The image data is saved in a pandas data-frame
 for column in output_table.columns:
-    # column is the name of the column in the "Table Cell View"
+    # column is the name of the column in the incoming KNIME table
     for index in output_table.index:
-        # index is the row index of the "Table Cell View"
+        # index is the row index in the incoming KNIME table
         
-        # this is the content if the cell in the "Table Cell View":
+        # this is the content of the cell in the incoming KNIME table at position column,index:
         cell = input_table[column][index]
         
         # The n-dimensional numpy array representing the image
