@@ -98,7 +98,7 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 				} catch (Exception e) {
 					e.printStackTrace();
 					throw new RuntimeException(
-							"Could not serialize image. Possible reasons: Strange image type, dimensionality of the image,...");
+							"Could not serialize image. Possible reasons: Unsupported image type, dimensionality of the image,...");
 				}
 			}
 		};
