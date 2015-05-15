@@ -31,24 +31,20 @@ In order to access the image data from e.g. an "Image Reader" node, a
 "Python Script" node must contain the following lines:
 
 ```python
-# optional, for numpy operations
-import numpy
+from pandas import DataFrame
+from KNIPImage import KNIPImage
+from scipy import ndimage
 
-# `output_table` contains the image data that will be streamed back to KNIME
-output_table = input_table.copy()
+output_table = DataFrame()
+res = []
 
-# The image data is saved in a pandas data-frame
-for column in output_table.columns:
-    # column is the name of the column in the incoming KNIME table
-    for index in output_table.index:
-        # index is the row index in the incoming KNIME table
-        
-        # this is the content of the cell in the incoming KNIME table at position column,index:
-        cell = input_table[column][index]
-        
-        # The n-dimensional numpy array representing the image
-        # can be accessed via
-        array = cell.array
+for index, item in input_table['Img'].iteritems():
+	input = item.array
+	filtered = ndimage.gaussian_filter(input, 3)
+	output = KNIPImage(filtered)
+	res.append(output)
+
+output_table['Res'] = res
 ```
 Notes:
 
