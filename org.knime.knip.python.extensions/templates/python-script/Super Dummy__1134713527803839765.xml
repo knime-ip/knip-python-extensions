@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="Super Dummy__1134713527803839765.xml">
-<entry key="category" type="xstring" value="Image Processing"/>
-<entry key="title" type="xstring" value="Super Dummy"/>
-<entry key="description" type="xstring" value="abc"/>
-<entry key="sourcecode" type="xstring" value="from PIL import ImageFilter%%00010from pandas import DataFrame%%00010from KNIPImg import KNIPImg%%00010%%00010output_table = DataFrame()%%00010res = []%%00010%%00010for index, item in input_table['Image'].iteritems():%%00010%%00009res.append(KNIPImg(item.image.filter(ImageFilter.EMBOSS)))%%00010%%00010output_table['Res'] = res"/>
-</config>
