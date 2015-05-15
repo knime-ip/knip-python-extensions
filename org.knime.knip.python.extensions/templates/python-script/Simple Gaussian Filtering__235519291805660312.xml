@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.knime.org/2008/09/XMLConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.knime.org/2008/09/XMLConfig http://www.knime.org/XMLConfig_2008_09.xsd" key="Simple Gaussian Filtering__235519291805660312.xml">
+<entry key="category" type="xstring" value="Image Processing"/>
+<entry key="title" type="xstring" value="Simple Gaussian Filtering"/>
+<entry key="description" type="xstring" value="Demonstrates how to apply a simple Gaussian Filtering to the incoming images in column 'Img'"/>
+<entry key="sourcecode" type="xstring" value="from pandas import DataFrame%%00010from KNIPImage import KNIPImage%%00010from scipy import ndimage%%00010%%00010output_table = DataFrame()%%00010res = []%%00010%%00010for index, item in input_table['Img'].iteritems():%%00010%%00009input = item.array%%00010%%00009filtered = ndimage.gaussian_filter(input, 3)%%00010%%00009output = KNIPImage(filtered)%%00010%%00009res.append(output)%%00010%%00010output_table['Res'] = res"/>
+</config>
