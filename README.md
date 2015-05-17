@@ -31,24 +31,36 @@ In order to access the image data from e.g. an "Image Reader" node, a
 "Python Script" node must contain the following lines:
 
 ```python
-from pandas import DataFrame
 from KNIPImage import KNIPImage
 from scipy import ndimage
 
-output_table = DataFrame()
-res = []
+# Copy structure of incoming KNIME table
+output_table = input_table.copy()
 
-for index, item in input_table['Img'].iteritems():
-	input = item.array
-	filtered = ndimage.gaussian_filter(input, 3)
-	output = KNIPImage(filtered)
-	res.append(output)
+# Create empty output_column
+output_column = []
 
-output_table['Res'] = res
+# Loop over every cell in the 'Img' column
+for index,input_cell in input_table['Img'].iteritems():
+
+	# get image from cell
+	image = input_cell.array
+
+	# apply some operation of image, here a Gaussian filtering
+	filtered = ndimage.gaussian_filter(image, 3)
+
+	# Write result back into a KNIPImage
+	output_cell = KNIPImage(filtered)
+
+	# Append output_cell to output array
+	output_column.append(output_cell)
+
+# Set output_column in output_table
+output_table['Img'] = output_column
 ```
 Notes:
 
-- In the above script, `cell` is an instance of [KNIPImage](https://github.com/knime-ip/knip-python-extensions/blob/master/org.knime.knip.python.extensions/py/KNIPImage.py).
+- In the above script, `input_cell` and `output_cell` are instances of [KNIPImage](https://github.com/knime-ip/knip-python-extensions/blob/master/org.knime.knip.python.extensions/py/KNIPImage.py).
   Further information/metadata could be defined in this class.
 
 - Copying `output_table` from `input_table` will keep the table
@@ -60,6 +72,6 @@ Notes:
   because (a) we save memory and (b) we loaded the image from a
   byte-stream and could not possibly change anything in the previous node.
   
-- Keep in mind that we can edit `cell.array` in-place with
-  e.g. `cell.array[0,:,:] = 1`.
+- Keep in mind that we can edit `input_cell.array` in-place with
+  e.g. `input_cell.array[0,:,:] = 1`.
 
