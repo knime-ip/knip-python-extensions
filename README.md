@@ -65,13 +65,14 @@ Notes:
 
 - Copying `output_table` from `input_table` will keep the table
   structure that KNIME expects intact. Since we are only interested in
-  manipulating the arrays, we can do so without having to worry about
+  manipulating the `"Img"` column, we can do so without having to worry about
   creating a new table.
   
 - In the above `copy()` operation, arrays are not copied. This is good,
   because (a) we save memory and (b) we loaded the image from a
   byte-stream and could not possibly change anything in the previous node.
   
-- Keep in mind that we can edit `input_cell.array` in-place with
-  e.g. `input_cell.array[0,:,:] = 1`.
+- Keep in mind that instead of creating an `output_column` and setting it as the `"Img"` column of the `output_table`, 
+  we can just edit `input_cell.array` in-place with
+  e.g. `input_cell.array[0,:,:] = 1`. This hackish approach saves memory and reduces the amount of scripting code.
 
