@@ -14,11 +14,6 @@
             java-serializer-factory="org.knime.knip.python.extensions.ImgPlusSerializer"
             python-deserializer="py/KNIPImageDeserializer.py">
       </type>
-      <type
-            id="org.knime.knip.python.extensions.PNGSerializer"
-            java-serializer-factory="org.knime.knip.python.extensions.PNGSerializer"
-            python-deserializer="py/PILImageDeserializer.py">
-      </type>
    </extension>
    <extension
          point="org.knime.python.typeextension.pythontoknime">
@@ -27,12 +22,6 @@
             java-deserializer-factory="org.knime.knip.python.extensions.ImgPlusDeserializer"
             python-serializer="py/KNIPImageSerializer.py"
             python-type-identifier="KNIPImage.KNIPImage">
-      </type>
-      <type
-            id="org.knime.knip.python.extensions.PNGDeserializer"
-            java-deserializer-factory="org.knime.knip.python.extensions.PNGDeserializer"
-            python-serializer="py/PILImageSerializer.py"
-            python-type-identifier="PIL.PngImagePlugin.PngImageFile">
       </type>
    </extension>
    <extension
