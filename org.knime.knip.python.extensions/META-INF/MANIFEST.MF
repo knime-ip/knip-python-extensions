@@ -3,7 +3,7 @@ Bundle-Name: KNIME Image Processing - Python Extensions
 Bundle-SymbolicName: org.knime.knip.python.extensions;singleton:=true
 Bundle-ManifestVersion: 2
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: University of Konstanz
+Bundle-Vendor: University of Konstanz / KNIME
 Eclipse-RegisterBuddy: org.knime.core
 Require-Bundle: org.knime.base;bundle-version="2.11.0",
  org.knime.workbench.repository,

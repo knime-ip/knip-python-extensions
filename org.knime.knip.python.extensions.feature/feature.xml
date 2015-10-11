@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.knime.knip.python.extensions.feature"
-      label="KNIME Image Processing Python Extensions"
+      label="KNIME Image Processing - Python Extensions Feature"
+
       version="1.0.0.qualifier"
       provider-name="University of Konstanz / KNIME">
 
    <description>
-      KNIME Image Processing Python Extension Nodes
+      KNIME Image Processing - Python Extensions
    </description>
 
    <copyright>
@@ -726,6 +727,24 @@ interoperation with KNIME.  The owner of a Node may freely choose the
 license terms applicable to such Node, including when such Node is
 propagated with or for interoperation with KNIME.
    </license>
+
+   <requires>
+      <import plugin="org.knime.base" version="2.11.0" match="greaterOrEqual"/>
+      <import plugin="org.knime.workbench.repository"/>
+      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.knime.knip.base" version="1.0.1" match="compatible"/>
+      <import plugin="org.knime.python" version="2.11.0" match="greaterOrEqual"/>
+      <import plugin="org.knime.knip.core" version="1.0.1" match="compatible"/>
+      <import plugin="org.knime.knip.io" version="1.2.0" match="compatible"/>
+      <import plugin="imglib2" version="2.2.0" match="greaterOrEqual"/>
+      <import plugin="imglib2-ij" version="2.0.29" match="greaterOrEqual"/>
+      <import plugin="scifio" version="0.20.0" match="greaterOrEqual"/>
+      <import plugin="scijava-common" version="2.37.0" match="greaterOrEqual"/>
+      <import plugin="imagej-common" version="0.12.1" match="greaterOrEqual"/>
+      <import plugin="scifio-bf-compat" version="1.11.0" match="greaterOrEqual"/>
+   </requires>
 
    <plugin
          id="org.knime.knip.python.extensions"
