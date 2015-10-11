@@ -5,6 +5,7 @@
       version="1.0.0.qualifier"
       provider-name="University of Konstanz / KNIME">
 
+
    <includes
          id="org.knime.knip.python.extensions.feature"
          version="0.0.0"/>
