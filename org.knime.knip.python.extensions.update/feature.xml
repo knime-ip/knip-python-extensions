@@ -3,8 +3,7 @@
       id="org.knime.knip.python.extensions.update"
       label="KNIME Image Processing - Python Extensions Update Site"
       version="1.0.0.qualifier"
-      provider-name="University of Konstanz / KNIME">
-
+      provider-name="University of Konstanz / MPICBG Dresden / BioTec TU Dresden">
 
    <includes
          id="org.knime.knip.python.extensions.feature"
