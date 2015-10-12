@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.knime.knip.python.extensions.feature"
+      id="org.knime.knip.python-extensions.feature"
       label="KNIME Image Processing - Python Extensions Feature"
 
       version="1.0.0.qualifier"
