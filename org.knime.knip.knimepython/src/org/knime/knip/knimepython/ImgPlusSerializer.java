@@ -1,4 +1,14 @@
-package org.knime.knip.python.extensions;
+package org.knime.knip.knimepython;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.knime.knip.base.data.img.ImgPlusValue;
+import org.knime.knip.io.ScifioGateway;
+import org.knime.python.typeextension.Serializer;
+import org.knime.python.typeextension.SerializerFactory;
 
 import io.scif.DefaultImageMetadata;
 import io.scif.DefaultMetadata;
@@ -13,20 +23,9 @@ import io.scif.img.ImgSaver;
 import io.scif.img.SCIFIOImgPlus;
 import io.scif.io.ByteArrayHandle;
 import io.scif.io.RandomAccessOutputStream;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import net.imagej.ImgPlus;
 import net.imagej.axis.Axes;
 import net.imagej.axis.CalibratedAxis;
-
-import org.knime.knip.base.data.img.ImgPlusValue;
-import org.knime.knip.io.ScifioGateway;
-import org.knime.python.typeextension.Serializer;
-import org.knime.python.typeextension.SerializerFactory;
 
 /**
  * Serializing ImgPlus instances to byte stream. Used format is .tif.
@@ -70,18 +69,15 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 
 			{
 				try {
-					m_writer = ScifioGateway.format().getWriterByExtension(
-							".tif");
+					m_writer = ScifioGateway.format().getWriterByExtension(".tif");
 				} catch (FormatException e) {
 					throw new RuntimeException(e);
 				}
 			}
 
 			@Override
-			public byte[] serialize(final ImgPlusValue<?> value)
-					throws IOException {
-				final ImgPlus<?> imgPlus = TypeUtils.converted(value
-						.getImgPlus());
+			public byte[] serialize(final ImgPlusValue<?> value) throws IOException {
+				final ImgPlus<?> imgPlus = TypeUtils.converted(value.getImgPlus());
 
 				try {
 					final ByteArrayHandle handle = new ByteArrayHandle();
@@ -115,15 +111,13 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 	 * 
 	 * @param imageIndex
 	 */
-	private void populateMeta(final Writer w, final ImgPlus<?> img,
-			final SCIFIOConfig config, final int imageIndex)
+	private void populateMeta(final Writer w, final ImgPlus<?> img, final SCIFIOConfig config, final int imageIndex)
 			throws FormatException, IOException, ImgIOException {
 
 		final Metadata meta = w.getFormat().createMetadata();
 
 		// Get format-specific metadata
-		Metadata imgMeta = ScifioGateway.getSCIFIO().imgUtil()
-				.makeSCIFIOImgPlus(img).getMetadata();
+		Metadata imgMeta = ScifioGateway.getSCIFIO().imgUtil().makeSCIFIOImgPlus(img).getMetadata();
 
 		final List<ImageMetadata> imageMeta = new ArrayList<ImageMetadata>();
 
@@ -138,8 +132,7 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 		}
 
 		// Create Img-specific ImageMetadatas
-		final int pixelType = ScifioGateway.getSCIFIO().imgUtil()
-				.makeType(img.firstElement());
+		final int pixelType = ScifioGateway.getSCIFIO().imgUtil().makeType(img.firstElement());
 
 		// TODO is there some way to consolidate this with the isCompressible
 		// method?
@@ -151,8 +144,7 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 
 		for (int i = 0; i < imageMeta.size(); i++) {
 			final ImageMetadata iMeta = imageMeta.get(i);
-			iMeta.populate(img.getName(), Arrays.asList(axes), axisLengths,
-					pixelType, true, false, false, false, true);
+			iMeta.populate(img.getName(), Arrays.asList(axes), axisLengths, pixelType, true, false, false, false, true);
 
 			// Adjust for RGB information
 			if (img.getCompositeChannelCount() > 1) {
@@ -161,21 +153,16 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 				}
 				iMeta.setAxisType(2, Axes.CHANNEL);
 				// Split Axes.CHANNEL if necessary
-				if (iMeta.getAxisLength(Axes.CHANNEL) > img
-						.getCompositeChannelCount()) {
-					iMeta.addAxis(
-							Axes.get("Channel-planes", false),
-							iMeta.getAxisLength(Axes.CHANNEL)
-									/ img.getCompositeChannelCount());
-					iMeta.setAxisLength(Axes.CHANNEL,
-							img.getCompositeChannelCount());
+				if (iMeta.getAxisLength(Axes.CHANNEL) > img.getCompositeChannelCount()) {
+					iMeta.addAxis(Axes.get("Channel-planes", false),
+							iMeta.getAxisLength(Axes.CHANNEL) / img.getCompositeChannelCount());
+					iMeta.setAxisLength(Axes.CHANNEL, img.getCompositeChannelCount());
 				}
 			}
 		}
 
 		// Translate to the output metadata
-		final Translator t = ScifioGateway.getSCIFIO().translator()
-				.findTranslator(imgMeta, meta, false);
+		final Translator t = ScifioGateway.getSCIFIO().translator().findTranslator(imgMeta, meta, false);
 
 		t.translate(imgMeta, imageMeta, meta);
 

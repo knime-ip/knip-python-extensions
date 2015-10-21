@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.knime.knip.python.extensions.update"
+      id="org.knime.knip.knimepython.update"
       label="KNIME Image Processing - Python Extensions Update Site"
       version="1.0.0.qualifier"
       provider-name="University of Konstanz / MPICBG Dresden / BioTec TU Dresden">
@@ -14,7 +14,7 @@
    </requires>
 
    <plugin
-         id="org.knime.knip.python.extensions"
+         id="org.knime.knip.knimepython"
          download-size="0"
          install-size="0"
          version="0.0.0"

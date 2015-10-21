@@ -1,8 +1,11 @@
-package org.knime.knip.python.extensions;
+package org.knime.knip.knimepython;
+
+import org.knime.core.node.NodeLogger;
 
 import net.imagej.ImgPlus;
 import net.imglib2.converter.Converter;
 import net.imglib2.converter.read.ConvertedRandomAccessibleInterval;
+import net.imglib2.img.ImgFactory;
 import net.imglib2.img.ImgView;
 import net.imglib2.type.logic.BitType;
 import net.imglib2.type.numeric.RealType;
@@ -11,8 +14,6 @@ import net.imglib2.type.numeric.integer.LongType;
 import net.imglib2.type.numeric.integer.ShortType;
 import net.imglib2.type.numeric.integer.Unsigned12BitType;
 import net.imglib2.type.numeric.integer.UnsignedShortType;
-
-import org.knime.core.node.NodeLogger;
 
 /**
  * Simple class for converting images if required. TODO: This code can be
@@ -23,8 +24,7 @@ import org.knime.core.node.NodeLogger;
  */
 public class TypeUtils {
 
-	private static final NodeLogger LOGGER = NodeLogger
-			.getLogger(TypeUtils.class);
+	private static final NodeLogger LOGGER = NodeLogger.getLogger(TypeUtils.class);
 
 	/**
 	 * Default Constructor
@@ -50,19 +50,15 @@ public class TypeUtils {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private static ImgPlus<?> convertedImgPlus(ImgPlus<?> in,
-			RealType<?> outType) {
-		triggerWarning(in.firstElement().getClass().getSimpleName(), outType
-				.getClass().getSimpleName());
-		return new ImgPlus(new ImgView(new ConvertedRandomAccessibleInterval(
-				in, createConverter(), outType), in.factory()));
+	private static ImgPlus<?> convertedImgPlus(ImgPlus<?> in, RealType<?> outType) {
+		triggerWarning(in.firstElement().getClass().getSimpleName(), outType.getClass().getSimpleName());
+		return new ImgPlus(ImgView.wrap(new ConvertedRandomAccessibleInterval(in, createConverter(), outType),
+				(ImgFactory) in.factory()));
 	}
 
 	private static void triggerWarning(String inType, String outType) {
-		LOGGER.warn("Images of type "
-				+ inType
-				+ " are not supported in the 'Python Script' Node.\n Automatically converting to "
-				+ outType
+		LOGGER.warn("Images of type " + inType
+				+ " are not supported in the 'Python Script' Node.\n Automatically converting to " + outType
 				+ ". \n However, we suggest to use the 'Image Converter' Node prior to the 'Python Script Node' to control the type conversion manually.");
 	}
 
