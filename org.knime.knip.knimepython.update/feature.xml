@@ -9,10 +9,6 @@
          id="org.knime.knip.knimepython.feature"
          version="0.0.0"/>
 
-   <requires>
-      <import feature="org.knime.features.python" version="3.0.0.0048544"/>
-   </requires>
-
    <plugin
          id="org.knime.knip.knimepython"
          download-size="0"
