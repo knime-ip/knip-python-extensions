@@ -6,7 +6,7 @@
       provider-name="University of Konstanz / MPICBG Dresden / BioTec TU Dresden">
 
    <includes
-         id="org.knime.knip.python-extensions.feature"
+         id="org.knime.knip.knimepython.feature"
          version="0.0.0"/>
 
    <requires>
