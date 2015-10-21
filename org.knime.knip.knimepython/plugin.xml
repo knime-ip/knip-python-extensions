@@ -10,7 +10,7 @@
    <extension
          point="org.knime.python.typeextension.knimetopython">
       <type
-            id="org.knime.knip.python-extensions.ImgPlusSerializer"
+            id="org.knime.knip.knimepython.ImgPlusSerializer"
             java-serializer-factory="org.knime.knip.knimepython.ImgPlusSerializer"
             python-deserializer="py/KNIPImageDeserializer.py">
       </type>
@@ -18,7 +18,7 @@
    <extension
          point="org.knime.python.typeextension.pythontoknime">
       <type
-            id="org.knime.knip.python.extensions.ImgPlusDeserializer"
+            id="org.knime.knip.knimepython.ImgPlusDeserializer"
             java-deserializer-factory="org.knime.knip.knimepython.ImgPlusDeserializer"
             python-serializer="py/KNIPImageSerializer.py"
             python-type-identifier="KNIPImage.KNIPImage">
