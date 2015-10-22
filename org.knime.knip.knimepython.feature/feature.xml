@@ -281,7 +281,7 @@ in one of these ways:
     b) Convey the object code in, or embodied in, a physical product
     (including a physical distribution medium), accompanied by a
     written offer, valid for at least three years and valid for as
-    long as you offer spare parts or customer support for that product
+    long as you offer spare parts or customer support for that productorg.knime.knip.knimepython.feature
     model, to give anyone who possesses the object code either (1) a
     copy of the Corresponding Source for all the software in the
     product that is covered by this License, on a durable physical
@@ -531,7 +531,7 @@ consistent with the requirements of this License, to extend the patent
 license to downstream recipients.  &quot;Knowingly relying&quot; means you have
 actual knowledge that, but for the patent license, your conveying the
 covered work in a country, or your recipient&apos;s use of the covered work
-in a country, would infringe one or more identifiable patents in that
+in a country, would infringe one or more identifiable patents in thatorg.knime.knip.knimepython.feature
 country that you have reason to believe are valid.
 
   If, pursuant to or in connection with a single transaction or
@@ -710,7 +710,7 @@ you the additional permission to use and propagate KNIME together with
 ECLIPSE with only the license terms in place for ECLIPSE applying to
 ECLIPSE and the GNU GPL Version 3 applying for KNIME, provided the
 license terms of ECLIPSE themselves allow for the respective use and
-propagation of ECLIPSE together with KNIME.
+propagation of ECLIPSE together with KNIME.org.knime.knip.knimepython.feature
  
  
 Additional permission relating to nodes for KNIME that extend the Node
@@ -727,11 +727,17 @@ license terms applicable to such Node, including when such Node is
 propagated with or for interoperation with KNIME.
    </license>
 
-   <pluginorg.knime.knip.knimepython.feature
+   <plugin
          id="org.knime.knip.knimepython"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="org.knime.python"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>
