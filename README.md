@@ -60,7 +60,7 @@ output_table['Img'] = output_column
 ```
 Notes:
 
-- In the above script, `input_cell` and `output_cell` are instances of [KNIPImage](https://github.com/knime-ip/knip-python-extensions/blob/master/org.knime.knip.python.extensions/py/KNIPImage.py).
+- In the above script, `input_cell` and `output_cell` are instances of [KNIPImage](https://github.com/knime-ip/knip-python-extensions/blob/master/org.knime.knip.knimepython/py/KNIPImage.py).
   Further information/metadata could be defined in this class.
 
 - Copying `output_table` from `input_table` will keep the table
