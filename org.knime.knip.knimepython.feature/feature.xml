@@ -729,7 +729,7 @@ propagated with or for interoperation with KNIME.
       
       
    <requires>
-      <import feature="org.knime.python" version="3.2.0" match="greaterOrEqual"/>
+      <import feature="org.knime.features.python" version="3.2.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
