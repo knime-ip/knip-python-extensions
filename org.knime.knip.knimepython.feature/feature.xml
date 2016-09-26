@@ -2,7 +2,7 @@
 <feature
       id="org.knime.knip.knimepython.feature"
       label="KNIME Image Processing - Python Extensions"
-      version="1.0.3.qualifier"
+      version="1.0.4.qualifier"
       provider-name="University of Konstanz / MPICBG Dresden / BioTec TU Dresden">
 
    <description>
@@ -726,8 +726,7 @@ interoperation with KNIME.  The owner of a Node may freely choose the
 license terms applicable to such Node, including when such Node is
 propagated with or for interoperation with KNIME.
    </license>
-      
-      
+
    <requires>
       <import feature="org.knime.features.python" version="3.2.0" match="greaterOrEqual"/>
    </requires>
