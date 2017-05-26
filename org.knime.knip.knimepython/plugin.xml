@@ -30,4 +30,21 @@
             path="templates/">
       </folder>
    </extension>
+   <extension
+         point="org.knime.python2.typeextension.knimetopython">
+      <type
+            id="org.knime.knip.knimepython.ImgPlus"
+            java-serializer-factory="org.knime.knip.knimepython2.ImgPlusSerializerFactory"
+            python-deserializer="py/KNIPImageDeserializer.py">
+      </type>
+   </extension>
+   <extension
+         point="org.knime.python2.typeextension.pythontoknime">
+      <type
+            id="org.knime.knip.knimepython.type2"
+            java-deserializer-factory="org.knime.knip.knimepython2.ImgPlusDeserializerFactory"
+            python-serializer="py/KNIPImageSerializer.py"
+            python-type-identifier="KNIPImage.KNIPImage">
+      </type>
+   </extension>
 </plugin>
