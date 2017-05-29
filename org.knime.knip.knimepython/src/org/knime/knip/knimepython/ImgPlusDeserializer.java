@@ -7,6 +7,7 @@ import org.knime.core.data.filestore.FileStoreFactory;
 import org.knime.knip.base.data.img.ImgPlusCell;
 import org.knime.knip.base.data.img.ImgPlusCellFactory;
 import org.knime.knip.io.ScifioGateway;
+import org.knime.knip.serialization.BytesToImgPlusConvertor;
 import org.knime.python.typeextension.Deserializer;
 import org.knime.python.typeextension.DeserializerFactory;
 
@@ -21,27 +22,17 @@ import io.scif.io.RandomAccessInputStream;
 import net.imagej.ImgPlus;
 
 /**
- * Deserializing ImgPlus instances from byte stream. Used format is .tif.
+ * Deserializer using the extension points in org.knime.python.
  * 
- * TODO: Use a Scijava Service in the background such that one could replace the
- * way images are serialized/deserialized
- * 
- * @author Christian Dietz (University of Konstanz)
+ * @author Clemens von Schwerin, KNIME.com, Konstanz, Germany
  */
 public class ImgPlusDeserializer extends DeserializerFactory {
 
-	/**
-	 * ImgOpener to read ImgPlus from stream
-	 */
-	private ImgOpener m_imgOpener;
-	private SCIFIOConfig m_scifioConfig;
+	private BytesToImgPlusConvertor m_convertor;
 
 	public ImgPlusDeserializer() {
 		super(ImgPlusCell.TYPE);
-		m_imgOpener = new ImgOpener(ScifioGateway.getSCIFIO().context());
-		m_scifioConfig = new SCIFIOConfig();
-		m_scifioConfig.groupableSetGroupFiles(false);
-		m_scifioConfig.imgOpenerSetComputeMinMax(false);
+		m_convertor = new BytesToImgPlusConvertor();
 	}
 
 	@Override
@@ -49,50 +40,11 @@ public class ImgPlusDeserializer extends DeserializerFactory {
 
 		return new Deserializer() {
 
-			private final Format m_format;
-			private final Parser m_parser;
-
-			{
-				try {
-					m_format = ScifioGateway.getSCIFIO().format().getFormat(".tif");
-					m_parser = m_format.createParser();
-				} catch (FormatException e) {
-					throw new RuntimeException(e);
-				}
-			}
-
-			@SuppressWarnings({ "rawtypes", "unchecked" })
 			@Override
 			public DataCell deserialize(final byte[] bytes, final FileStoreFactory fileStoreFactory)
 					throws IOException {
 
-				final ImgPlusCellFactory factory = new ImgPlusCellFactory(fileStoreFactory);
-
-				// TODO this hack should be removed in the future, as soon as
-				// filename bug is resolved
-				// We have to set the filename as a NPE would be thrown
-				// otherwise
-				final RandomAccessInputStream stream = new RandomAccessInputStream(
-						ScifioGateway.getSCIFIO().getContext(), bytes) {
-					@Override
-					public String getFileName() {
-						return "";
-					}
-				};
-
-				try {
-
-					final Metadata metadata = m_parser.parse(stream, m_scifioConfig);
-					metadata.setSource(stream);
-
-					final Reader reader = m_format.createReader();
-					reader.setMetadata(metadata);
-					reader.setSource(stream, m_scifioConfig);
-
-					return factory.createCell((ImgPlus) m_imgOpener.openImgs(reader, m_scifioConfig).get(0));
-				} catch (final Exception e) {
-					throw new RuntimeException(e);
-				}
+				return m_convertor.deserialize(bytes, fileStoreFactory);
 			}
 		};
 	}
