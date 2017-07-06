@@ -1,4 +1,4 @@
-package org.knime.knip.knimepython;
+package org.knime.knip.knimepython2;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,9 +7,10 @@ import java.util.List;
 
 import org.knime.knip.base.data.img.ImgPlusValue;
 import org.knime.knip.io.ScifioGateway;
+import org.knime.knip.knimepython.TypeUtils;
 import org.knime.knip.serialization.ImgPlusToBytesConvertor;
-import org.knime.python.typeextension.Serializer;
-import org.knime.python.typeextension.SerializerFactory;
+import org.knime.python2.typeextension.Serializer;
+import org.knime.python2.typeextension.SerializerFactory;
 
 import io.scif.DefaultImageMetadata;
 import io.scif.DefaultMetadata;
@@ -29,18 +30,17 @@ import net.imagej.axis.Axes;
 import net.imagej.axis.CalibratedAxis;
 
 /**
- * Serializer using the extension points in org.knime.python.
+ * Serializer using the extension points in org.knime.python2.
  * 
  * @author Clemens von Schwerin, KNIME.com, Konstanz, Germany
  */
-@SuppressWarnings("rawtypes")
-public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
-
+public class ImgPlusSerializerFactory extends SerializerFactory<ImgPlusValue>{
+	
 	private final ImgPlusToBytesConvertor m_convertor;
 	/**
 	 * Constructor
 	 */
-	public ImgPlusSerializer() {
+	public ImgPlusSerializerFactory() {
 		super(ImgPlusValue.class);
 		m_convertor = new ImgPlusToBytesConvertor();
 	}

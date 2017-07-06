@@ -1,4 +1,4 @@
-package org.knime.knip.knimepython;
+package org.knime.knip.knimepython2;
 
 import java.io.IOException;
 
@@ -8,8 +8,8 @@ import org.knime.knip.base.data.img.ImgPlusCell;
 import org.knime.knip.base.data.img.ImgPlusCellFactory;
 import org.knime.knip.io.ScifioGateway;
 import org.knime.knip.serialization.BytesToImgPlusConvertor;
-import org.knime.python.typeextension.Deserializer;
-import org.knime.python.typeextension.DeserializerFactory;
+import org.knime.python2.typeextension.Deserializer;
+import org.knime.python2.typeextension.DeserializerFactory;
 
 import io.scif.Format;
 import io.scif.FormatException;
@@ -22,15 +22,15 @@ import io.scif.io.RandomAccessInputStream;
 import net.imagej.ImgPlus;
 
 /**
- * Deserializer using the extension points in org.knime.python.
+ * Deserializer using the extension points in org.knime.python2.
  * 
  * @author Clemens von Schwerin, KNIME.com, Konstanz, Germany
  */
-public class ImgPlusDeserializer extends DeserializerFactory {
+public class ImgPlusDeserializerFactory extends DeserializerFactory {
 
 	private BytesToImgPlusConvertor m_convertor;
 
-	public ImgPlusDeserializer() {
+	public ImgPlusDeserializerFactory() {
 		super(ImgPlusCell.TYPE);
 		m_convertor = new BytesToImgPlusConvertor();
 	}
@@ -49,3 +49,4 @@ public class ImgPlusDeserializer extends DeserializerFactory {
 		};
 	}
 }
+
