@@ -11,7 +11,6 @@ Require-Bundle: org.knime.base;bundle-version="2.11.0",
  org.eclipse.core.runtime,
  org.eclipse.ui,
  org.knime.knip.base;bundle-version="[1.0.1,2.0.0)",
- org.knime.python;bundle-version="3.0.0",
  org.knime.knip.core;bundle-version="[1.0.1,2.0.0)",
  org.knime.knip.io;bundle-version="[1.2.0,2.0.0)",
  imglib2;bundle-version="2.2.0",
@@ -20,8 +19,7 @@ Require-Bundle: org.knime.base;bundle-version="2.11.0",
  scijava-common;bundle-version="2.37.0",
  imagej-common;bundle-version="0.12.1",
  scifio-bf-compat;bundle-version="1.11.0",
- org.knime.python.nodes;bundle-version="3.0.0",
- org.knime.python2;bundle-version="3.4.0"
+ org.knime.python.typeextensions;bundle-version="3.4.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .
 Export-Package: org.knime.knip.knimepython
