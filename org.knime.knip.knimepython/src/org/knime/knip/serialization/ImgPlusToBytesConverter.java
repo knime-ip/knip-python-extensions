@@ -35,8 +35,8 @@ import net.imagej.axis.CalibratedAxis;
  * @author Christian Dietz (University of Konstanz)
  *
  */
-public class ImgPlusToBytesConvertor {
-	
+public class ImgPlusToBytesConverter {
+
 	/**
 	 * ImgSaver to write ImgPlus to stream as tif
 	 */
@@ -48,8 +48,8 @@ public class ImgPlusToBytesConvertor {
 	private SCIFIOConfig m_scifioConfig;
 	
 	private Writer m_writer;
-	
-	public ImgPlusToBytesConvertor() {
+
+	public ImgPlusToBytesConverter() {
 		m_saver = new ImgSaver(ScifioGateway.getSCIFIO().getContext());
 		m_scifioConfig = new SCIFIOConfig();
 		m_scifioConfig.groupableSetGroupFiles(false);

@@ -26,7 +26,7 @@ import net.imagej.ImgPlus;
  * @author Christian Dietz (University of Konstanz)
  */
 
-public class BytesToImgPlusConvertor {
+public class BytesToImgPlusConverter {
 	
 	/**
 	 * ImgOpener to read ImgPlus from stream
@@ -40,7 +40,7 @@ public class BytesToImgPlusConvertor {
 	/**
 	 * Constructor
 	 */
-	public BytesToImgPlusConvertor() {
+	public BytesToImgPlusConverter() {
 		m_imgOpener = new ImgOpener(ScifioGateway.getSCIFIO().context());
 		m_scifioConfig = new SCIFIOConfig();
 		m_scifioConfig.groupableSetGroupFiles(false);

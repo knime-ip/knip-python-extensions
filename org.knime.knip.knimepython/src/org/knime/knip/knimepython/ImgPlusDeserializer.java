@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.knime.core.data.DataCell;
 import org.knime.core.data.filestore.FileStoreFactory;
 import org.knime.knip.base.data.img.ImgPlusCell;
-import org.knime.knip.serialization.BytesToImgPlusConvertor;
+import org.knime.knip.serialization.BytesToImgPlusConverter;
 import org.knime.python.typeextension.Deserializer;
 import org.knime.python.typeextension.DeserializerFactory;
 
@@ -17,23 +17,21 @@ import org.knime.python.typeextension.DeserializerFactory;
  */
 public class ImgPlusDeserializer extends DeserializerFactory {
 
-	private BytesToImgPlusConvertor m_convertor;
+	private final BytesToImgPlusConverter m_converter;
 
 	public ImgPlusDeserializer() {
 		super(ImgPlusCell.TYPE);
-		m_convertor = new BytesToImgPlusConvertor();
+		m_converter = new BytesToImgPlusConverter();
 	}
 
 	@Override
 	public Deserializer createDeserializer() {
-
 		return new Deserializer() {
 
 			@Override
 			public DataCell deserialize(final byte[] bytes, final FileStoreFactory fileStoreFactory)
 					throws IOException {
-
-				return m_convertor.deserialize(bytes, fileStoreFactory);
+				return m_converter.deserialize(bytes, fileStoreFactory);
 			}
 		};
 	}
