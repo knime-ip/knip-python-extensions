@@ -15,13 +15,10 @@ import org.knime.python.typeextension.DeserializerFactory;
  * 
  * @author Clemens von Schwerin, KNIME.com, Konstanz, Germany
  */
-public class ImgPlusDeserializer extends DeserializerFactory {
+public class ImgPlusDeserializerFactory extends DeserializerFactory {
 
-	private final BytesToImgPlusConverter m_converter;
-
-	public ImgPlusDeserializer() {
+	public ImgPlusDeserializerFactory() {
 		super(ImgPlusCell.TYPE);
-		m_converter = new BytesToImgPlusConverter();
 	}
 
 	@Override
@@ -31,7 +28,7 @@ public class ImgPlusDeserializer extends DeserializerFactory {
 			@Override
 			public DataCell deserialize(final byte[] bytes, final FileStoreFactory fileStoreFactory)
 					throws IOException {
-				return m_converter.deserialize(bytes, fileStoreFactory);
+				return new BytesToImgPlusConverter().deserialize(bytes, fileStoreFactory);
 			}
 		};
 	}

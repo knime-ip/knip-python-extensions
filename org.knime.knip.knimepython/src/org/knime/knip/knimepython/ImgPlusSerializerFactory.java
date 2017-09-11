@@ -13,16 +13,13 @@ import org.knime.python.typeextension.SerializerFactory;
  * @author Clemens von Schwerin, KNIME.com, Konstanz, Germany
  */
 @SuppressWarnings("rawtypes")
-public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
-
-	private final ImgPlusToBytesConverter m_converter;
+public class ImgPlusSerializerFactory extends SerializerFactory<ImgPlusValue> {
 
 	/**
 	 * Constructor
 	 */
-	public ImgPlusSerializer() {
+	public ImgPlusSerializerFactory() {
 		super(ImgPlusValue.class);
-		m_converter = new ImgPlusToBytesConverter();
 	}
 
 	@Override
@@ -31,7 +28,7 @@ public class ImgPlusSerializer extends SerializerFactory<ImgPlusValue> {
 
 			@Override
 			public byte[] serialize(final ImgPlusValue<?> value) throws IOException {
-				return m_converter.serialize(value);
+				return new ImgPlusToBytesConverter().serialize(value);
 			}
 		};
 	}

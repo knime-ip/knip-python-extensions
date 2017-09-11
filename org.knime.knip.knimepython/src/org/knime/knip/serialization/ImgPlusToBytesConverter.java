@@ -1,6 +1,7 @@
 package org.knime.knip.serialization;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +26,7 @@ import io.scif.io.RandomAccessOutputStream;
 import net.imagej.ImgPlus;
 import net.imagej.axis.Axes;
 import net.imagej.axis.CalibratedAxis;
+import net.imglib2.util.Intervals;
 
 /**
  * Serializing ImgPlus instances to byte stream. Used format is .tif.
@@ -40,13 +42,13 @@ public class ImgPlusToBytesConverter {
 	/**
 	 * ImgSaver to write ImgPlus to stream as tif
 	 */
-	private ImgSaver m_saver;
+	private final ImgSaver m_saver;
 
 	/**
 	 * SCIFIO config to read/write images
 	 */
-	private SCIFIOConfig m_scifioConfig;
-	
+	private final SCIFIOConfig m_scifioConfig;
+
 	private Writer m_writer;
 
 	public ImgPlusToBytesConverter() {
@@ -55,16 +57,18 @@ public class ImgPlusToBytesConverter {
 		m_scifioConfig.groupableSetGroupFiles(false);
 		m_scifioConfig.imgOpenerSetComputeMinMax(false);
 	}
-	
+
 	public byte[] serialize(final ImgPlusValue<?> value) throws IOException {
-		if(m_writer == null) {
+		if (m_writer == null) {
 			m_writer = createWriter();
 		}
-		
+
 		final ImgPlus<?> imgPlus = TypeUtils.converted(value.getImgPlus());
 
 		try {
-			final ByteArrayHandle handle = new ByteArrayHandle();
+			final ByteBuffer buffer = ByteBuffer.allocate((int) Intervals.numElements(value.getDimensions()));
+			buffer.limit(0);
+			final ByteArrayHandle handle = new ByteArrayHandle(buffer);
 			populateMeta(m_writer, imgPlus, m_scifioConfig, 0);
 			// HACK Corresponds to filename
 			m_writer.getMetadata().setDatasetName("");
@@ -73,24 +77,22 @@ public class ImgPlusToBytesConverter {
 			m_saver.saveImg(m_writer, imgPlus.getImg(), m_scifioConfig);
 
 			m_writer.close();
-
 			return handle.getBytes();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (final Exception e) {
 			throw new RuntimeException(
-					"Could not serialize image. Possible reasons: Unsupported image type, dimensionality of the image,...");
+					"Could not serialize image. Possible reasons: Unsupported image type, dimensionality of the image,...",
+					e);
 		}
 	}
-	
-	private Writer createWriter()
-	{
+
+	private Writer createWriter() {
 		try {
 			return ScifioGateway.format().getWriterByExtension(".tif");
 		} catch (FormatException e) {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	/**
 	 * This method is copied from SCIFIO
 	 * 
@@ -110,7 +112,7 @@ public class ImgPlusToBytesConverter {
 		// Get format-specific metadata
 		Metadata imgMeta = ScifioGateway.getSCIFIO().imgUtil().makeSCIFIOImgPlus(img).getMetadata();
 
-		final List<ImageMetadata> imageMeta = new ArrayList<ImageMetadata>();
+		final List<ImageMetadata> imageMeta = new ArrayList<>();
 
 		if (imgMeta == null) {
 			imgMeta = new DefaultMetadata();
