@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-Name: University of Konstanz / MPICBG Dresden / BioTec TU Dresden
 Bundle-SymbolicName: org.knime.knip.knimepython;singleton:=true
 Bundle-ManifestVersion: 2
-Bundle-Version: 1.0.6.qualifier
+Bundle-Version: 1.0.7.qualifier
 Bundle-Vendor: University of Konstanz / KNIME
 Eclipse-RegisterBuddy: org.knime.core
 Require-Bundle: org.knime.base;bundle-version="2.11.0",
