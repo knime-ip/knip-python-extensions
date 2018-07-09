@@ -5,21 +5,21 @@ Bundle-ManifestVersion: 2
 Bundle-Version: 1.0.7.qualifier
 Bundle-Vendor: University of Konstanz / KNIME
 Eclipse-RegisterBuddy: org.knime.core
-Require-Bundle: org.knime.base;bundle-version="2.11.0",
- org.knime.workbench.repository,
+Require-Bundle: org.knime.base;bundle-version="[3.6.0,4.0.0)",
+ org.knime.workbench.repository;bundle-version="[3.6.0,4.0.0)",
  org.apache.log4j;bundle-version="1.2.15",
  org.eclipse.core.runtime,
  org.eclipse.ui,
  org.knime.knip.base;bundle-version="[1.0.1,2.0.0)",
  org.knime.knip.core;bundle-version="[1.0.1,2.0.0)",
  org.knime.knip.io;bundle-version="[1.2.0,2.0.0)",
- imglib2;bundle-version="2.2.0",
- imglib2-ij;bundle-version="2.0.29",
- scifio;bundle-version="0.20.0",
- scijava-common;bundle-version="2.37.0",
- imagej-common;bundle-version="0.12.1",
- scifio-bf-compat;bundle-version="1.11.0",
- org.knime.python.typeextensions;bundle-version="3.4.0"
+ imglib2;bundle-version="5.3.0",
+ imglib2-ij;bundle-version="2.0.42",
+ scifio;bundle-version="0.37.0",
+ scijava-common;bundle-version="2.74.2",
+ imagej-common;bundle-version="0.26.1",
+ scifio-bf-compat;bundle-version="3.0.0",
+ org.knime.python.typeextensions;bundle-version="[3.5.0,4.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ClassPath: .
 Export-Package: org.knime.knip.knimepython
