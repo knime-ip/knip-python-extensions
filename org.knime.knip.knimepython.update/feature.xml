@@ -2,7 +2,7 @@
 <feature
       id="org.knime.knip.knimepython.update"
       label="KNIME Image Processing - Python Extensions Update Site"
-      version="1.0.7.qualifier"
+      version="1.0.8.qualifier"
       provider-name="University of Konstanz / MPICBG Dresden / BioTec TU Dresden">
 
    <includes
