@@ -26,7 +26,12 @@ import io.scif.io.RandomAccessOutputStream;
 import net.imagej.ImgPlus;
 import net.imagej.axis.Axes;
 import net.imagej.axis.CalibratedAxis;
+import net.imglib2.RandomAccessibleInterval;
+import net.imglib2.img.Img;
+import net.imglib2.img.ImgView;
+import net.imglib2.type.Type;
 import net.imglib2.util.Intervals;
+import net.imglib2.view.Views;
 
 /**
  * Serializing ImgPlus instances to byte stream. Used format is .tif.
@@ -37,7 +42,7 @@ import net.imglib2.util.Intervals;
  * @author Christian Dietz (University of Konstanz)
  *
  */
-public class ImgPlusToBytesConverter {
+public class ImgPlusToBytesConverter<T extends Type<T>> {
 
 	/**
 	 * ImgSaver to write ImgPlus to stream as tif
@@ -63,7 +68,8 @@ public class ImgPlusToBytesConverter {
 			m_writer = createWriter();
 		}
 
-		final ImgPlus<?> imgPlus = TypeUtils.converted(value.getImgPlus());
+		@SuppressWarnings("unchecked")
+		final ImgPlus<T> imgPlus = (ImgPlus<T>) TypeUtils.converted(value.getImgPlus());
 
 		try {
 			final ByteBuffer buffer = ByteBuffer.allocate((int) Intervals.numElements(value.getDimensions()));
@@ -74,7 +80,8 @@ public class ImgPlusToBytesConverter {
 			m_writer.getMetadata().setDatasetName("");
 			m_writer.setDest(new RandomAccessOutputStream(handle), 0);
 
-			m_saver.saveImg(m_writer, imgPlus.getImg(), m_scifioConfig);
+			final Img<T> zeroMinImg = ImgView.wrap(Views.zeroMin(imgPlus.getImg()), imgPlus.factory());
+			m_saver.saveImg(m_writer, zeroMinImg, m_scifioConfig);
 
 			m_writer.close();
 			return handle.getBytes();
