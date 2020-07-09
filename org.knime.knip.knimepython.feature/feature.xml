@@ -2,7 +2,7 @@
 <feature
       id="org.knime.knip.knimepython.feature"
       label="KNIME Image Processing - Python Extensions"
-      version="1.0.8.qualifier"
+      version="1.0.9.qualifier"
       provider-name="University of Konstanz / MPICBG Dresden / BioTec TU Dresden">
 
    <description>
@@ -690,7 +690,7 @@ Public License instead of this License.  But first, please read
    </license>
 
    <requires>
-      <import feature="org.knime.features.python2" version="3.5.0" match="greaterOrEqual"/>
+      <import feature="org.knime.features.python2" version="4.2.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
