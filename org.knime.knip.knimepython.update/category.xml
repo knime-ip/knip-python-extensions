@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.knime.knip.knimepython.feature" version="0.0.0">
+       <category name="knip-python" />
+   </feature>
+
+   <category-def name="knip-python" label="Build artifacts from knip-python">
+       <description>Build artifacts from knip-python</description>
+   </category-def>
+</site>
