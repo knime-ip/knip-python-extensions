@@ -1,7 +1,7 @@
 KNIP Python Bindings Extension (BETA)
 ====================
 
-KNIME Image Processing Python Bindings to use ImgPlus in the KNIME Python extension. 
+KNIME Image Processing Python Bindings to use ImgPlus in the KNIME Python 2 Integration (legacy). 
 
 
 ### Problem
@@ -26,9 +26,9 @@ This results in an increased memory footprint and additional processing time.
 - NumPy
 
 
-### Example Python Script Node
+### Example Python Script (legacy) Node
 In order to access the image data from e.g. an "Image Reader" node, a
-"Python Script" node must contain the following lines:
+"Python Script (legacy)" node must contain the following lines:
 
 ```python
 from KNIPImage import KNIPImage
